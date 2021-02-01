@@ -1,0 +1,20 @@
+[target.'cfg(all(target_arch = "arm", target_os = "none"))']
+{% if microcontroller == "nrf52840" %}
+   {% set chip = "nRF52840_xxAA" %}
+{%- endif %}
+runner = "probe-run --chip {{ chip }} --defmt"
+rustflags = [
+  "-C", "linker=flip-link",
+  "-C", "link-arg=-Tlink.x",
+  "-C", "link-arg=-Tdefmt.x",
+  "-C", "link-arg=--nmagic",
+]
+
+[build]
+{% if microcontroller == "nrf52840" %}
+target = "thumbv7em-none-eabihf"
+{%- endif %}
+
+[alias]
+rb = "run --bin"
+rrb = "run --release --bin"
