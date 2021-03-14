@@ -2,7 +2,7 @@
 {% if microcontroller == "nrf52840" %}
    {% set chip = "nRF52840_xxAA" %}
 {%- endif %}
-runner = "probe-run --chip {{ chip }} --defmt"
+runner = "probe-run --chip {{ chip }}"
 rustflags = [
   "-C", "linker=flip-link",
   "-C", "link-arg=-Tlink.x",
